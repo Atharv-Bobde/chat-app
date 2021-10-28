@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head'); %>
+</head>
+<body>
+    <div class='container' id="chat-box"> 
+        <h1 id="usercount"></h1>
+        <ul class="list-group list-group-flush overflow-auto" id="messages">
+           <!-- <li class="list-group-item list-group-item-secondary"></li>-->
+          </ul>
+          <form action="">
+            <div class="mb-3">
+                <input class="form-control" id="m" type="text" placeholder="Message" aria-label=".form-control-sm example">
+            </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='/socket.io/socket.io.js'></script>
+    <script async, defer, src='/public/client.js'></script>
+</body>
+</html>

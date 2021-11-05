@@ -4,12 +4,13 @@
     <%- include('head'); %>
 </head>
 <body>
+    <script>const roomname="<%=roomname%>"</script>
     <div class='container' id="chat-box"> 
         <h1 id="usercount"></h1>
         <ul class="list-group list-group-flush overflow-auto" id="messages">
            <!-- <li class="list-group-item list-group-item-secondary"></li>-->
           </ul>
-          <form action="">
+          <form id="chat-form" action="">
             <div class="mb-3">
                 <input class="form-control" id="m" type="text" placeholder="Message" aria-label=".form-control-sm example">
             </div>

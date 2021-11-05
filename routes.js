@@ -1,7 +1,8 @@
 const passport = require("passport")
 const bcrypt=require('bcrypt');
+//const { io } = require("socket.io-client");
 
-module.exports=function(app,myDataBase){
+module.exports=function(app,myDataBase,rooms,io){
     app.route('/').get((req,res)=>{
         res.render('index',{flash:req.flash('error')})
     })
@@ -38,10 +39,22 @@ module.exports=function(app,myDataBase){
       })
     
     app.route('/profile').get(ensureAuthenticated, (req,res) => {
-    res.render('profile',{username:req.user.username});
+    res.render('profile',{username:req.user.username,rooms:rooms});
     });
-    app.route('/chat').get(ensureAuthenticated,(req,res)=>{
+    /*app.route('/chat').get(ensureAuthenticated,(req,res)=>{
         res.render('chat',{user:req.user});
+    })*/
+    app.route('/room').post(ensureAuthenticated,(req,res)=>{
+        if(rooms[req.body.roomname!=null])
+            return res.redirect('/profile');
+        rooms[req.body.roomname]={users:{}};
+        res.redirect('/room/'+req.body.roomname);
+        io.emit('room-created',req.body.roomname);
+    })
+    app.route('/room/:room').get(ensureAuthenticated,(req,res)=>{
+        if(rooms[req.params.room]==null)
+            return res.redirect('/profile');
+        res.render('chat',{roomname:req.params.room})
     })
     app.route('/logout').get((req, res) => {
     req.logout();

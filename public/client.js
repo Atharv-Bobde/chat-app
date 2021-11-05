@@ -1,7 +1,9 @@
 let socket=io();
 
+socket.emit('new-user',roomname)
+
 socket.on('user-count',data=>{
-    $('#usercount').text(data.currentUsers + ' users online');
+    //$('#usercount').text(data.currentUsers + ' users online');
   let message =
     data.name +
     (data.connected ? ' has joined the chat.' : ' has left the chat.');
@@ -16,11 +18,22 @@ socket.on('chat-message',data=>{
    
 })
 
+socket.on('room-created',room=>{
+  const roomContainer = document.getElementById('room-container')
+  const roomElement = document.createElement('div')
+  roomElement.innerText = room
+  const roomLink = document.createElement('a')
+  roomLink.href = `room/${room}`
+  roomLink.innerText = 'join'
+  roomContainer.append(roomElement)
+  roomContainer.append(roomLink)
+})
+
 
 $(document).ready(function(){
-    $('form').submit(()=>{
+    $('#chat-form').submit(()=>{
         const messageToSend=$('#m').val();
-        socket.emit('chat-message', messageToSend);
+        socket.emit('chat-message',roomname, messageToSend);
         $('#m').val('');
         return false;
     })

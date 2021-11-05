@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('head'); %>
     <title>Document</title>
 </head>
 <body>
     <h1>Welcome <%=username%></h1>
-    <a href="/chat">chat</a>
+   <!-- <a href="/chat">chat</a>-->
     <a href="/logout">logout</a>
+    <div class="container">
+        <form action="/room" method="post">
+            <div class="mb-3">
+                <label for="roomname" class="form-label">Room Name</label>
+                <input type="text" class="form-control" id="roomname" name="roomname">
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+        <div id='room-container'>
+            <% Object.keys(rooms).forEach(room => { %>
+                <div><%= room %></div>
+                <a href="room/<%= room %>">Join</a>
+              <% }) %>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='/socket.io/socket.io.js'></script>
+    <script async, defer, src='/public/client.js'></script>
 </body>
 </html>

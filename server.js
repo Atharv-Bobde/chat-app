@@ -43,21 +43,24 @@ io.use(
   );
 
 app.set('view engine','ejs')
-
+rooms={};
 myDB(async client=>{
     const myDataBase=await client.db('chat-app').collection('users');
-    routes(app,myDataBase);
+    console.log('connected to database')
+    routes(app,myDataBase,rooms,io);
     auth(app,myDataBase);
     let usercount=0;
     io.on('connection',socket=>{
-        usercount++;
-        io.emit('user-count',{currentUsers:usercount,name:socket.request.user.username,connected:true})
+      socket.on('new-user',(room)=>{
+        socket.join(room)
+        io.to(room).emit('user-count',{name:socket.request.user.username,connected:true})
+      })
+        /*io.emit('user-count',{currentUsers:usercount,name:socket.request.user.username,connected:true})
         socket.on('disconnect',()=>{
-            usercount--;
-            io.emit('user-count',{currentUsers:usercount,name:socket.request.user.username,connected:false})
-        })
-        socket.on('chat-message',message=>{
-          io.emit('chat-message',{name:socket.request.user.username,message})
+            socket.to(room).emit('user-count',{name:socket.request.user.username,connected:false})
+        })*/
+        socket.on('chat-message',(room,message)=>{
+          io.to(room).emit('chat-message',{name:socket.request.user.username,message})
         })
     })
 })

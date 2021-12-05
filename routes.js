@@ -2,8 +2,8 @@ const passport = require("passport")
 const bcrypt=require('bcrypt');
 //const { io } = require("socket.io-client");
 
-module.exports=function(app,myDataBase,rooms,io){
-    app.route('/').get((req,res)=>{
+module.exports=function(app,myDataBase,io,rooms){
+    app.route('/').get(alreadyAuthenticated,(req,res)=>{
         res.render('index',{flash:req.flash('error')})
     })
     app.route('/register').post((req,res,next)=>{
@@ -47,14 +47,14 @@ module.exports=function(app,myDataBase,rooms,io){
     app.route('/room').post(ensureAuthenticated,(req,res)=>{
         if(rooms[req.body.roomname!=null])
             return res.redirect('/profile');
-        rooms[req.body.roomname]={users:{}};
+        rooms[req.body.roomname]={users:{},usercount:0};
         res.redirect('/room/'+req.body.roomname);
         io.emit('room-created',req.body.roomname);
     })
     app.route('/room/:room').get(ensureAuthenticated,(req,res)=>{
         if(rooms[req.params.room]==null)
             return res.redirect('/profile');
-        res.render('chat',{roomname:req.params.room})
+        res.render('chat',{roomname:req.params.room,user:req.user.username})
     })
     app.route('/logout').get((req, res) => {
     req.logout();
@@ -70,4 +70,11 @@ function ensureAuthenticated(req,res,next)
     return next();
   }
   res.redirect('/');
+}
+function alreadyAuthenticated(req,res,next)
+{
+    if(req.isAuthenticated())
+        res.redirect('/profile')
+    else
+        return next();
 }

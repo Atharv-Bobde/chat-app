@@ -1,24 +1,57 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <%- include('head'); %>
+    <title>Chat screen</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/styles.css">
+    <!-- Font Awesome File -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 <body>
-    <script>const roomname="<%=roomname%>"</script>
-    <div class='container' id="chat-box"> 
-        <h1 id="usercount"></h1>
-        <ul class="list-group list-group-flush overflow-auto" id="messages">
-           <!-- <li class="list-group-item list-group-item-secondary"></li>-->
-          </ul>
-          <form id="chat-form" action="">
-            <div class="mb-3">
-                <input class="form-control" id="m" type="text" placeholder="Message" aria-label=".form-control-sm example">
-            </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+    <script>
+        const roomname="<%=roomname%>";
+        const user="<%=user%>";
+    </script>
+    <div class="container app">
+    <div class="row app-one">
 
+      <div class="col-sm-12 conversation">
+        <div class="row heading">
+          
+          <div class="col-sm-8 col-xs-6 heading-name">
+            <div class="heading-name-meta"><%=roomname%>
+            </div>
+            <span id="usercount"></span>
+          </div>
+          
+          <a role="button" href="/profile" class="btn btn-danger" style="float:right ;">Leave</a>
+        </div>
+        
+        <div class="row message" id="conversation">
+          
+          
+        </div>
+        
+        <div class="row reply">
+          <form id="chat-form" action="">
+            <div class="col-sm-9 col-xs-9 reply-main">
+              <input class="form-control" rows="1" id="m" type="text" required>
+            </div>
+            <div class="col-sm-1 col-xs-2">
+              <button  type="submit" class="btn btn-primary"><i class="fa fa-send fa-2x" aria-hidden="true"></i></button> 
+            </div>
+          </form>
+        </div>
+        
+      </div>
+      
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src='/socket.io/socket.io.js'></script>
     <script async, defer, src='/public/client.js'></script>
 </body>

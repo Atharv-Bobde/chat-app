@@ -6,7 +6,10 @@
   </a>
 </p>
 
-> Simple chat application where users can login/regiters themselves and create/join rooms to chat with others.
+> Simple chat application where users can login/register themselves and create/join rooms to chat with others.
+Technologies used:
+  Backend:node.js,express.js,socket.io,passport,express sessions,mongoDB.
+  front-end:HTML,CSS,javascript,Bootstrap.
 
 ### 🏠 [Homepage](https://flack-ab.herokuapp.com/)
 
@@ -27,7 +30,7 @@ npm run start
 👤 **Atharv Bobde**
 
 * Github: [@Atharv-Bobde](https://github.com/Atharv-Bobde)
-* LinkedIn: [@atharv-bobde](https://linkedin.com/in/atharv-bobde)
+* LinkedIn: [@atharv-bobde](https://linkedin.com/in/atharv-bobde-848737192)
 
 ## Show your support
 

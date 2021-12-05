@@ -7,10 +7,6 @@
 </p>
 
 > Simple chat application where users can login/register themselves and create/join rooms to chat with others.
-Technologies used:
-  Backend:node.js,express.js,socket.io,passport,express sessions,mongoDB.
-  front-end:HTML,CSS,javascript,Bootstrap.
-
 ### 🏠 [Homepage](https://flack-ab.herokuapp.com/)
 
 ## Install
